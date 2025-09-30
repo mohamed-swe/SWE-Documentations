@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Premium Articles Collection</title>
+    <script>
+      window.ENFORCE_AUTH = true;
+    </script>
+    <script src="../auth.js"></script>
+    <link rel="stylesheet" href="../styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <h1 class="title">
+          <i class="fas fa-book-open"></i>
+          Premium Articles Collection
+        </h1>
+        <p class="subtitle">
+          A curated collection of technical articles and guides
+        </p>
+      </header>
+
+      <div class="search-container">
+        <div class="search-box">
+          <i class="fas fa-search"></i>
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Search articles..."
+          />
+        </div>
+        <div class="filter-container">
+          <select id="categoryFilter" class="category-filter">
+            <option value="all">All Categories</option>
+          </select>
+          <select id="sortFilter" class="sort-filter">
+            <option value="no-sort">No Sort</option>
+            <option value="title">Sort by Title</option>
+            <option value="date">Sort by Date</option>
+            <option value="watched">Show Watched</option>
+            <option value="unwatched">Show Unwatched</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="stats">
+        <div class="stat-item">
+          <i class="fas fa-file-alt"></i>
+          <span id="totalArticles">0</span>
+          <span>Articles</span>
+        </div>
+        <div class="stat-item">
+          <i class="fas fa-code"></i>
+          <span>Technical</span>
+          <span>Content</span>
+        </div>
+      </div>
+
+      <div class="articles-grid" id="articlesGrid">
+        <div class="loading">
+          <div class="spinner"></div>
+          <p>Loading articles...</p>
+        </div>
+      </div>
+    </div>
+
+    <script src="../script.js"></script>
+  </body>
+</html>

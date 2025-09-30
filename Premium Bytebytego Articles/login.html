@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      .login-wrapper {
+        max-width: 420px;
+        margin: 10vh auto;
+        padding: 2rem;
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+      }
+      .login-wrapper h1 {
+        margin-bottom: 1rem;
+        text-align: center;
+      }
+      .login-wrapper p {
+        margin-bottom: 1.5rem;
+        text-align: center;
+        color: #4a5568;
+      }
+      .login-wrapper label {
+        display: block;
+        margin: 0.5rem 0 0.25rem;
+        font-weight: 600;
+        color: #2d3748;
+      }
+      .login-wrapper input {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        border: 1px solid #e2e8f0;
+        border-radius: 10px;
+        font-size: 1rem;
+      }
+      .login-wrapper button {
+        margin-top: 1rem;
+        width: 100%;
+      }
+      .error {
+        color: #e53e3e;
+        margin-top: 0.75rem;
+        text-align: center;
+        display: none;
+      }
+    </style>
+    <script>
+      window.ENFORCE_AUTH = false;
+    </script>
+    <script src="auth.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="login-wrapper">
+        <h1>Sign in</h1>
+        <p>Access to premium articles requires login.</p>
+        <form id="loginForm">
+          <label for="username">Username</label>
+          <input id="username" name="username" type="text" required />
+          <label for="password">Password</label>
+          <input id="password" name="password" type="password" required />
+          <button class="btn btn-primary" type="submit">Login</button>
+          <div id="error" class="error">Invalid credentials</div>
+        </form>
+      </div>
+    </div>
+    <script>
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          const username = document.getElementById("username").value.trim();
+          const password = document.getElementById("password").value.trim();
+          const isValid = username === "testUser" && password === "pass1A..";
+          if (isValid) {
+            const expiryMinutes = 8 * 60; // 8 hours
+            const expiryAt = Date.now() + expiryMinutes * 60 * 1000;
+            localStorage.setItem(
+              "auth.session",
+              JSON.stringify({ user: username, expiryAt })
+            );
+            const redirectTo =
+              sessionStorage.getItem("auth.redirect") || "articles/index.html";
+            sessionStorage.removeItem("auth.redirect");
+            window.location.replace(redirectTo);
+          } else {
+            document.getElementById("error").style.display = "block";
+          }
+        });
+    </script>
+  </body>
+</html>
